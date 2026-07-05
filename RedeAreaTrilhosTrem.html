@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado Rede Aérea, Trilhos e AMV - Frota P</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f3ecff;
+color:#2e1a47;
+padding-bottom: 100px; /* espaço para os botões fixos */
+}
+
+header{
+background:#7b2cbf;
+color:white;
+padding:20px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,.2);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+header h1{
+font-size:24px;
+}
+
+header p{
+margin-top:5px;
+font-size:14px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px 20px 100px 20px; /* padding inferior extra */
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+border-left:6px solid #9d4edd;
+}
+
+.question{
+font-weight:bold;
+margin-bottom:10px;
+line-height:1.5;
+}
+
+.option{
+display:block;
+padding:10px;
+margin:6px 0;
+border:1px solid #ddd;
+border-radius:8px;
+cursor:pointer;
+transition:.2s;
+}
+
+.option:hover{
+background:#f5e9ff;
+}
+
+/* Botões fixos */
+#botoes-fixos {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+background: rgba(255, 255, 255, 0.95);
+padding: 12px 20px;
+box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+justify-content: center;
+align-items: center;
+z-index: 999;
+backdrop-filter: blur(4px);
+border-top: 2px solid #7b2cbf;
+}
+
+#botoes-fixos button {
+flex: 1 1 200px;
+min-width: 140px;
+padding: 14px 20px;
+border: none;
+border-radius: 30px;
+font-size: 18px;
+font-weight: bold;
+cursor: pointer;
+transition: 0.3s;
+box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#btnFinalizar {
+background: #7b2cbf;
+color: white;
+}
+
+#btnFinalizar:hover {
+background: #5a189a;
+transform: scale(1.02);
+}
+
+#btnErros {
+background: #c1121f;
+color: white;
+display: none; /* inicialmente escondido */
+}
+
+#btnErros:hover {
+background: #a10d1a;
+transform: scale(1.02);
+}
+
+#resultado{
+display:none;
+background:white;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.acerto{
+background:#d8f3dc;
+}
+
+.erro{
+background:#ffccd5;
+}
+
+.numeroErro{
+display:inline-block;
+background:#ff4d6d;
+color:white;
+padding:6px 10px;
+margin:4px;
+border-radius:8px;
+font-weight:bold;
+}
+
+.gabarito{
+margin-top:10px;
+padding:10px;
+background:#efe6ff;
+border-radius:8px;
+font-size:14px;
+}
+
+.oculto{
+display:none;
+}
+
+/* responsivo */
+@media (max-width: 600px) {
+#botoes-fixos button {
+flex: 1 1 100%;
+min-width: unset;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Simulado Rede Aérea, Trilhos e AMV</h1>
+<p>50 questões • Frota P • Rede Aérea • Via Permanente • Truques</p>
+</header>
+
+<div class="container">
+
+<div id="resultado"></div>
+
+<div id="quiz">
+
+<!-- QUESTÃO 1 -->
+<div class="card">
+<div class="question">1. Qual a tensão da rede aérea utilizada pela Frota P?</div>
+<label class="option"><input type="radio" name="q1" value="0">750 Vcc</label>
+<label class="option"><input type="radio" name="q1" value="1">1500 Vcc</label>
+<label class="option"><input type="radio" name="q1" value="0">3000 Vcc</label>
+<label class="option"><input type="radio" name="q1" value="0">220 Vac</label>
+<div class="gabarito oculto">Resposta: 1500 Vcc</div>
+</div>
+
+<!-- QUESTÃO 2 -->
+<div class="card">
+<div class="question">2. Qual equipamento coleta energia da rede aérea?</div>
+<label class="option"><input type="radio" name="q2" value="1">Pantógrafo</label>
+<label class="option"><input type="radio" name="q2" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q2" value="0">Tacogerador</label>
+<label class="option"><input type="radio" name="q2" value="0">CVS</label>
+<div class="gabarito oculto">Resposta: Pantógrafo</div>
+</div>
+
+<!-- QUESTÃO 3 -->
+<div class="card">
+<div class="question">3. A parte superior do pantógrafo que toca a rede aérea chama-se:</div>
+<label class="option"><input type="radio" name="q3" value="0">Patim</label>
+<label class="option"><input type="radio" name="q3" value="1">Canoa</label>
+<label class="option"><input type="radio" name="q3" value="0">Agulha</label>
+<label class="option"><input type="radio" name="q3" value="0">Braço guia</label>
+<div class="gabarito oculto">Resposta: Canoa</div>
+</div>
+
+<!-- QUESTÃO 4 -->
+<div class="card">
+<div class="question">4. Quantos pantógrafos normalmente permanecem levantados na Frota P?</div>
+<label class="option"><input type="radio" name="q4" value="0">1</label>
+<label class="option"><input type="radio" name="q4" value="0">2</label>
+<label class="option"><input type="radio" name="q4" value="1">3</label>
+<label class="option"><input type="radio" name="q4" value="0">6</label>
+<div class="gabarito oculto">Resposta: 3</div>
+</div>
+
+<!-- QUESTÃO 5 -->
+<div class="card">
+<div class="question">5. O que sustenta mecanicamente a rede aérea?</div>
+<label class="option"><input type="radio" name="q5" value="0">Dormente</label>
+<label class="option"><input type="radio" name="q5" value="1">Poste de sustentação</label>
+<label class="option"><input type="radio" name="q5" value="0">AMV</label>
+<label class="option"><input type="radio" name="q5" value="0">Jacaré</label>
+<div class="gabarito oculto">Resposta: Poste de sustentação</div>
+</div>
+
+<!-- QUESTÃO 6 -->
+<div class="card">
+<div class="question">6. Qual material é normalmente utilizado como isolador da rede aérea?</div>
+<label class="option"><input type="radio" name="q6" value="0">Madeira</label>
+<label class="option"><input type="radio" name="q6" value="1">Porcelana</label>
+<label class="option"><input type="radio" name="q6" value="0">Concreto</label>
+<label class="option"><input type="radio" name="q6" value="0">Ferro fundido</label>
+<div class="gabarito oculto">Resposta: Porcelana</div>
+</div>
+
+<!-- QUESTÃO 7 -->
+<div class="card">
+<div class="question">7. O trilho é composto por:</div>
+<label class="option"><input type="radio" name="q7" value="1">Boleto, alma e patim</label>
+<label class="option"><input type="radio" name="q7" value="0">Cabeça, corpo e roda</label>
+<label class="option"><input type="radio" name="q7" value="0">Alma, flange e eixo</label>
+<label class="option"><input type="radio" name="q7" value="0">Dormente, boleto e roda</label>
+<div class="gabarito oculto">Resposta: Boleto, alma e patim</div>
+</div>
+
+<!-- QUESTÃO 8 -->
+<div class="card">
+<div class="question">8. Qual parte do trilho recebe contato direto das rodas?</div>
+<label class="option"><input type="radio" name="q8" value="1">Boleto</label>
+<label class="option"><input type="radio" name="q8" value="0">Patim</label>
+<label class="option"><input type="radio" name="q8" value="0">Alma</label>
+<label class="option"><input type="radio" name="q8" value="0">Fixação</label>
+<div class="gabarito oculto">Resposta: Boleto</div>
+</div>
+
+<!-- QUESTÃO 9 -->
+<div class="card">
+<div class="question">9. A alma do trilho liga:</div>
+<label class="option"><input type="radio" name="q9" value="1">Boleto e patim</label>
+<label class="option"><input type="radio" name="q9" value="0">Roda e eixo</label>
+<label class="option"><input type="radio" name="q9" value="0">AMV e jacaré</label>
+<label class="option"><input type="radio" name="q9" value="0">Dormente e lastro</label>
+<div class="gabarito oculto">Resposta: Boleto e patim</div>
+</div>
+
+<!-- QUESTÃO 10 -->
+<div class="card">
+<div class="question">10. O patim do trilho serve principalmente para:</div>
+<label class="option"><input type="radio" name="q10" value="1">Apoio e fixação</label>
+<label class="option"><input type="radio" name="q10" value="0">Contato da roda</label>
+<label class="option"><input type="radio" name="q10" value="0">Condução elétrica</label>
+<label class="option"><input type="radio" name="q10" value="0">Mudança de via</label>
+<div class="gabarito oculto">Resposta: Apoio e fixação</div>
+</div>
+  
+<!-- QUESTÃO 11 -->
+<div class="card">
+<div class="question">11. O que sustenta os trilhos e distribui a carga para o lastro?</div>
+<label class="option"><input type="radio" name="q11" value="0">AMV</label>
+<label class="option"><input type="radio" name="q11" value="1">Dormente</label>
+<label class="option"><input type="radio" name="q11" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q11" value="0">Jacaré</label>
+<div class="gabarito oculto">Resposta: Dormente</div>
+</div>
+
+<!-- QUESTÃO 12 -->
+<div class="card">
+<div class="question">12. O lastro é normalmente composto por:</div>
+<label class="option"><input type="radio" name="q12" value="0">Areia</label>
+<label class="option"><input type="radio" name="q12" value="1">Brita</label>
+<label class="option"><input type="radio" name="q12" value="0">Concreto</label>
+<label class="option"><input type="radio" name="q12" value="0">Madeira</label>
+<div class="gabarito oculto">Resposta: Brita</div>
+</div>
+
+<!-- QUESTÃO 13 -->
+<div class="card">
+<div class="question">13. A principal função do lastro é:</div>
+<label class="option"><input type="radio" name="q13" value="1">Distribuir cargas e drenar água</label>
+<label class="option"><input type="radio" name="q13" value="0">Alimentar o trem</label>
+<label class="option"><input type="radio" name="q13" value="0">Controlar portas</label>
+<label class="option"><input type="radio" name="q13" value="0">Controlar CBTC</label>
+<div class="gabarito oculto">Resposta: Distribuir cargas e drenar água</div>
+</div>
+
+<!-- QUESTÃO 14 -->
+<div class="card">
+<div class="question">14. O que significa AMV?</div>
+<label class="option"><input type="radio" name="q14" value="1">Aparelho de Mudança de Via</label>
+<label class="option"><input type="radio" name="q14" value="0">Área de Movimento Viário</label>
+<label class="option"><input type="radio" name="q14" value="0">Acesso Manual de Via</label>
+<label class="option"><input type="radio" name="q14" value="0">Alimentação de Via</label>
+<div class="gabarito oculto">Resposta: Aparelho de Mudança de Via</div>
+</div>
+
+<!-- QUESTÃO 15 -->
+<div class="card">
+<div class="question">15. Qual a principal função do AMV?</div>
+<label class="option"><input type="radio" name="q15" value="1">Permitir mudança de uma via para outra</label>
+<label class="option"><input type="radio" name="q15" value="0">Alimentar a rede aérea</label>
+<label class="option"><input type="radio" name="q15" value="0">Frear o trem</label>
+<label class="option"><input type="radio" name="q15" value="0">Monitorar passageiros</label>
+<div class="gabarito oculto">Resposta: Permitir mudança de uma via para outra</div>
+</div>
+
+<!-- QUESTÃO 16 -->
+<div class="card">
+<div class="question">16. Qual componente móvel direciona as rodas dentro do AMV?</div>
+<label class="option"><input type="radio" name="q16" value="1">Agulha</label>
+<label class="option"><input type="radio" name="q16" value="0">Boleto</label>
+<label class="option"><input type="radio" name="q16" value="0">Dormente</label>
+<label class="option"><input type="radio" name="q16" value="0">Patim</label>
+<div class="gabarito oculto">Resposta: Agulha</div>
+</div>
+
+<!-- QUESTÃO 17 -->
+<div class="card">
+<div class="question">17. O jacaré está localizado em qual parte do AMV?</div>
+<label class="option"><input type="radio" name="q17" value="1">Cruzamento dos trilhos</label>
+<label class="option"><input type="radio" name="q17" value="0">Rede aérea</label>
+<label class="option"><input type="radio" name="q17" value="0">Cabine</label>
+<label class="option"><input type="radio" name="q17" value="0">Pantógrafo</label>
+<div class="gabarito oculto">Resposta: Cruzamento dos trilhos</div>
+</div>
+
+<!-- QUESTÃO 18 -->
+<div class="card">
+<div class="question">18. O contratrilho tem a função de:</div>
+<label class="option"><input type="radio" name="q18" value="1">Guiar as rodas</label>
+<label class="option"><input type="radio" name="q18" value="0">Fornecer energia</label>
+<label class="option"><input type="radio" name="q18" value="0">Controlar portas</label>
+<label class="option"><input type="radio" name="q18" value="0">Refrigerar motores</label>
+<div class="gabarito oculto">Resposta: Guiar as rodas</div>
+</div>
+
+<!-- QUESTÃO 19 -->
+<div class="card">
+<div class="question">19. O AMV é movimentado por:</div>
+<label class="option"><input type="radio" name="q19" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q19" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q19" value="1">Máquina de chave</label>
+<label class="option"><input type="radio" name="q19" value="0">Tacogerador</label>
+<div class="gabarito oculto">Resposta: Máquina de chave</div>
+</div>
+
+<!-- QUESTÃO 20 -->
+<div class="card">
+<div class="question">20. O conjunto roda + eixo recebe o nome de:</div>
+<label class="option"><input type="radio" name="q20" value="0">Truque</label>
+<label class="option"><input type="radio" name="q20" value="1">Rodeiro</label>
+<label class="option"><input type="radio" name="q20" value="0">AMV</label>
+<label class="option"><input type="radio" name="q20" value="0">Patim</label>
+<div class="gabarito oculto">Resposta: Rodeiro</div>
+</div>
+
+<!-- QUESTÃO 21 -->
+<div class="card">
+<div class="question">21. O truque é responsável por:</div>
+<label class="option"><input type="radio" name="q21" value="1">Sustentação e movimentação do trem</label>
+<label class="option"><input type="radio" name="q21" value="0">Energia do trem</label>
+<label class="option"><input type="radio" name="q21" value="0">Comunicação CBTC</label>
+<label class="option"><input type="radio" name="q21" value="0">Controle das portas</label>
+<div class="gabarito oculto">Resposta: Sustentação e movimentação do trem</div>
+</div>
+
+<!-- QUESTÃO 22 -->
+<div class="card">
+<div class="question">22. Quantos motores de tração possui a Frota P?</div>
+<label class="option"><input type="radio" name="q22" value="0">18</label>
+<label class="option"><input type="radio" name="q22" value="0">20</label>
+<label class="option"><input type="radio" name="q22" value="1">22</label>
+<label class="option"><input type="radio" name="q22" value="0">24</label>
+<div class="gabarito oculto">Resposta: 22 motores</div>
+</div>
+
+<!-- QUESTÃO 23 -->
+<div class="card">
+<div class="question">23. Dois eixos da Frota P não possuem motor devido à instalação de:</div>
+<label class="option"><input type="radio" name="q23" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q23" value="1">Odometria CBTC</label>
+<label class="option"><input type="radio" name="q23" value="0">CVS</label>
+<label class="option"><input type="radio" name="q23" value="0">PA/PIS</label>
+<div class="gabarito oculto">Resposta: Odometria CBTC</div>
+</div>
+
+<!-- QUESTÃO 24 -->
+<div class="card">
+<div class="question">24. Qual equipamento mede velocidade através do eixo?</div>
+<label class="option"><input type="radio" name="q24" value="1">Tacogerador</label>
+<label class="option"><input type="radio" name="q24" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q24" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q24" value="0">CVS</label>
+<div class="gabarito oculto">Resposta: Tacogerador</div>
+</div>
+
+<!-- QUESTÃO 25 -->
+<div class="card">
+<div class="question">25. Qual equipamento lê as balizas do sistema CBTC?</div>
+<label class="option"><input type="radio" name="q25" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q25" value="1">Leitora de balizas</label>
+<label class="option"><input type="radio" name="q25" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q25" value="0">Inversor</label>
+<div class="gabarito oculto">Resposta: Leitora de balizas</div>
+</div>
+<!-- QUESTÃO 26 -->
+<div class="card">
+<div class="question">26. Qual equipamento reduz o desgaste entre roda e trilho em curvas?</div>
+<label class="option"><input type="radio" name="q26" value="1">Lubrificador de flanges</label>
+<label class="option"><input type="radio" name="q26" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q26" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q26" value="0">CVS</label>
+<div class="gabarito oculto">Resposta: Lubrificador de flanges</div>
+</div>
+
+<!-- QUESTÃO 27 -->
+<div class="card">
+<div class="question">27. Qual suspensão fica entre caixa do carro e truque?</div>
+<label class="option"><input type="radio" name="q27" value="0">Primária</label>
+<label class="option"><input type="radio" name="q27" value="1">Secundária</label>
+<label class="option"><input type="radio" name="q27" value="0">Pneumática</label>
+<label class="option"><input type="radio" name="q27" value="0">Hidráulica</label>
+<div class="gabarito oculto">Resposta: Suspensão Secundária</div>
+</div>
+
+<!-- QUESTÃO 28 -->
+<div class="card">
+<div class="question">28. Qual suspensão fica entre eixo e estrutura do truque?</div>
+<label class="option"><input type="radio" name="q28" value="1">Primária</label>
+<label class="option"><input type="radio" name="q28" value="0">Secundária</label>
+<label class="option"><input type="radio" name="q28" value="0">Principal</label>
+<label class="option"><input type="radio" name="q28" value="0">Auxiliar</label>
+<div class="gabarito oculto">Resposta: Suspensão Primária</div>
+</div>
+
+<!-- QUESTÃO 29 -->
+<div class="card">
+<div class="question">29. Qual equipamento aplica força de frenagem nas rodas?</div>
+<label class="option"><input type="radio" name="q29" value="1">Pinça de freio</label>
+<label class="option"><input type="radio" name="q29" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q29" value="0">Tacogerador</label>
+<label class="option"><input type="radio" name="q29" value="0">CVS</label>
+<div class="gabarito oculto">Resposta: Pinça de freio</div>
+</div>
+
+<!-- QUESTÃO 30 -->
+<div class="card">
+<div class="question">30. O pantógrafo da Linha 5 é do tipo:</div>
+<label class="option"><input type="radio" name="q30" value="0">Losangular</label>
+<label class="option"><input type="radio" name="q30" value="1">Semirromboidal</label>
+<label class="option"><input type="radio" name="q30" value="0">Retangular</label>
+<label class="option"><input type="radio" name="q30" value="0">Tubular</label>
+<div class="gabarito oculto">Resposta: Semirromboidal</div>
+</div>
+
+<!-- QUESTÃO 31 -->
+<div class="card">
+<div class="question">31. O pantógrafo é alimentado para subir através da:</div>
+<label class="option"><input type="radio" name="q31" value="1">Bateria</label>
+<label class="option"><input type="radio" name="q31" value="0">Rede aérea diretamente</label>
+<label class="option"><input type="radio" name="q31" value="0">CVS</label>
+<label class="option"><input type="radio" name="q31" value="0">Motor de tração</label>
+<div class="gabarito oculto">Resposta: Bateria</div>
+</div>
+
+<!-- QUESTÃO 32 -->
+<div class="card">
+<div class="question">32. Qual componente do trilho fica na parte inferior?</div>
+<label class="option"><input type="radio" name="q32" value="0">Boleto</label>
+<label class="option"><input type="radio" name="q32" value="0">Alma</label>
+<label class="option"><input type="radio" name="q32" value="1">Patim</label>
+<label class="option"><input type="radio" name="q32" value="0">Flange</label>
+<div class="gabarito oculto">Resposta: Patim</div>
+</div>
+
+<!-- QUESTÃO 33 -->
+<div class="card">
+<div class="question">33. O que evita contato elétrico indevido entre partes energizadas?</div>
+<label class="option"><input type="radio" name="q33" value="1">Isolador</label>
+<label class="option"><input type="radio" name="q33" value="0">Dormente</label>
+<label class="option"><input type="radio" name="q33" value="0">Lastro</label>
+<label class="option"><input type="radio" name="q33" value="0">Agulha</label>
+<div class="gabarito oculto">Resposta: Isolador</div>
+</div>
+
+<!-- QUESTÃO 34 -->
+<div class="card">
+<div class="question">34. Qual componente direciona as rodas no cruzamento do AMV?</div>
+<label class="option"><input type="radio" name="q34" value="0">Patim</label>
+<label class="option"><input type="radio" name="q34" value="1">Contratrilho</label>
+<label class="option"><input type="radio" name="q34" value="0">Dormente</label>
+<label class="option"><input type="radio" name="q34" value="0">Poste</label>
+<div class="gabarito oculto">Resposta: Contratrilho</div>
+</div>
+
+<!-- QUESTÃO 35 -->
+<div class="card">
+<div class="question">35. A máquina de chave atua diretamente sobre:</div>
+<label class="option"><input type="radio" name="q35" value="1">Agulhas</label>
+<label class="option"><input type="radio" name="q35" value="0">Pantógrafos</label>
+<label class="option"><input type="radio" name="q35" value="0">Motores</label>
+<label class="option"><input type="radio" name="q35" value="0">Tacogeradores</label>
+<div class="gabarito oculto">Resposta: Agulhas</div>
+</div>
+
+<!-- QUESTÃO 36 -->
+<div class="card">
+<div class="question">36. O trilho é fabricado predominantemente em:</div>
+<label class="option"><input type="radio" name="q36" value="1">Aço</label>
+<label class="option"><input type="radio" name="q36" value="0">Alumínio</label>
+<label class="option"><input type="radio" name="q36" value="0">Concreto</label>
+<label class="option"><input type="radio" name="q36" value="0">Cobre</label>
+<div class="gabarito oculto">Resposta: Aço</div>
+</div>
+
+<!-- QUESTÃO 37 -->
+<div class="card">
+<div class="question">37. Qual item fica instalado no teto dos carros?</div>
+<label class="option"><input type="radio" name="q37" value="1">Antena CBTC</label>
+<label class="option"><input type="radio" name="q37" value="0">Pinça de freio</label>
+<label class="option"><input type="radio" name="q37" value="0">Rodeiro</label>
+<label class="option"><input type="radio" name="q37" value="0">Tacogerador</label>
+<div class="gabarito oculto">Resposta: Antena CBTC</div>
+</div>
+
+<!-- QUESTÃO 38 -->
+<div class="card">
+<div class="question">38. Qual elemento mantém a bitola da via?</div>
+<label class="option"><input type="radio" name="q38" value="1">Dormente</label>
+<label class="option"><input type="radio" name="q38" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q38" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q38" value="0">CVS</label>
+<div class="gabarito oculto">Resposta: Dormente</div>
+</div>
+
+<!-- QUESTÃO 39 -->
+<div class="card">
+<div class="question">39. A distância entre os dois trilhos recebe o nome de:</div>
+<label class="option"><input type="radio" name="q39" value="0">Lastro</label>
+<label class="option"><input type="radio" name="q39" value="1">Bitola</label>
+<label class="option"><input type="radio" name="q39" value="0">Patim</label>
+<label class="option"><input type="radio" name="q39" value="0">Agulha</label>
+<div class="gabarito oculto">Resposta: Bitola</div>
+</div>
+
+<!-- QUESTÃO 40 -->
+<div class="card">
+<div class="question">40. O principal objetivo da suspensão é:</div>
+<label class="option"><input type="radio" name="q40" value="1">Absorver impactos e vibrações</label>
+<label class="option"><input type="radio" name="q40" value="0">Alimentar motores</label>
+<label class="option"><input type="radio" name="q40" value="0">Controlar CBTC</label>
+<label class="option"><input type="radio" name="q40" value="0">Acionar portas</label>
+<div class="gabarito oculto">Resposta: Absorver impactos e vibrações</div>
+</div>
+  
+<!-- QUESTÃO 41 -->
+<div class="card">
+<div class="question">41. Qual equipamento transforma energia elétrica em movimento?</div>
+<label class="option"><input type="radio" name="q41" value="1">Motor de tração</label>
+<label class="option"><input type="radio" name="q41" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q41" value="0">CVS</label>
+<label class="option"><input type="radio" name="q41" value="0">Compressor</label>
+<div class="gabarito oculto">Resposta: Motor de tração</div>
+</div>
+
+<!-- QUESTÃO 42 -->
+<div class="card">
+<div class="question">42. O compressor pertence a qual sistema?</div>
+<label class="option"><input type="radio" name="q42" value="0">Tração</label>
+<label class="option"><input type="radio" name="q42" value="1">Pneumático</label>
+<label class="option"><input type="radio" name="q42" value="0">Rede aérea</label>
+<label class="option"><input type="radio" name="q42" value="0">CBTC</label>
+<div class="gabarito oculto">Resposta: Sistema Pneumático</div>
+</div>
+
+<!-- QUESTÃO 43 -->
+<div class="card">
+<div class="question">43. O pantógrafo toca diretamente qual elemento?</div>
+<label class="option"><input type="radio" name="q43" value="1">Catenária</label>
+<label class="option"><input type="radio" name="q43" value="0">Trilho</label>
+<label class="option"><input type="radio" name="q43" value="0">Dormente</label>
+<label class="option"><input type="radio" name="q43" value="0">Jacaré</label>
+<div class="gabarito oculto">Resposta: Catenária</div>
+</div>
+
+<!-- QUESTÃO 44 -->
+<div class="card">
+<div class="question">44. O CVS significa:</div>
+<label class="option"><input type="radio" name="q44" value="1">Conversor Auxiliar</label>
+<label class="option"><input type="radio" name="q44" value="0">Controle de Via</label>
+<label class="option"><input type="radio" name="q44" value="0">Conversor de Velocidade</label>
+<label class="option"><input type="radio" name="q44" value="0">Controle Virtual</label>
+<div class="gabarito oculto">Resposta: Conversor Auxiliar</div>
+</div>
+
+<!-- QUESTÃO 45 -->
+<div class="card">
+<div class="question">45. O trilho é fixado ao dormente por:</div>
+<label class="option"><input type="radio" name="q45" value="1">Fixações</label>
+<label class="option"><input type="radio" name="q45" value="0">Pantógrafos</label>
+<label class="option"><input type="radio" name="q45" value="0">Tacogeradores</label>
+<label class="option"><input type="radio" name="q45" value="0">Balizas</label>
+<div class="gabarito oculto">Resposta: Fixações</div>
+</div>
+
+<!-- QUESTÃO 46 -->
+<div class="card">
+<div class="question">46. O jacaré pertence a qual equipamento?</div>
+<label class="option"><input type="radio" name="q46" value="1">AMV</label>
+<label class="option"><input type="radio" name="q46" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q46" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q46" value="0">CBTC</label>
+<div class="gabarito oculto">Resposta: AMV</div>
+</div>
+
+<!-- QUESTÃO 47 -->
+<div class="card">
+<div class="question">47. Qual equipamento detecta posição através de balizas?</div>
+<label class="option"><input type="radio" name="q47" value="1">Sistema CBTC</label>
+<label class="option"><input type="radio" name="q47" value="0">Compressor</label>
+<label class="option"><input type="radio" name="q47" value="0">Pantógrafo</label>
+<label class="option"><input type="radio" name="q47" value="0">CVS</label>
+<div class="gabarito oculto">Resposta: Sistema CBTC</div>
+</div>
+
+<!-- QUESTÃO 48 -->
+<div class="card">
+<div class="question">48. O rodeiro é formado por:</div>
+<label class="option"><input type="radio" name="q48" value="1">Rodas e eixo</label>
+<label class="option"><input type="radio" name="q48" value="0">Motor e caixa</label>
+<label class="option"><input type="radio" name="q48" value="0">Agulha e jacaré</label>
+<label class="option"><input type="radio" name="q48" value="0">Patim e boleto</label>
+<div class="gabarito oculto">Resposta: Rodas e eixo</div>
+</div>
+
+<!-- QUESTÃO 49 -->
+<div class="card">
+<div class="question">49. A principal função do poste de sustentação é:</div>
+<label class="option"><input type="radio" name="q49" value="1">Sustentar a rede aérea</label>
+<label class="option"><input type="radio" name="q49" value="0">Mover o trem</label>
+<label class="option"><input type="radio" name="q49" value="0">Frear o trem</label>
+<label class="option"><input type="radio" name="q49" value="0">Controlar portas</label>
+<div class="gabarito oculto">Resposta: Sustentar a rede aérea</div>
+</div>
+
+<!-- QUESTÃO 50 -->
+<div class="card">
+<div class="question">50. O conjunto de perguntas deste simulado aborda principalmente:</div>
+<label class="option"><input type="radio" name="q50" value="0">Portas e CFTV</label>
+<label class="option"><input type="radio" name="q50" value="1">Rede aérea, trilhos, AMV e truques</label>
+<label class="option"><input type="radio" name="q50" value="0">Somente CBTC</label>
+<label class="option"><input type="radio" name="q50" value="0">Somente portas</label>
+<div class="gabarito oculto">Resposta: Rede aérea, trilhos, AMV e truques</div>
+</div>
+
+</div><!-- fim quiz -->
+
+</div><!-- fim container -->
+
+<!-- Botões fixos na parte inferior -->
+<div id="botoes-fixos">
+<button id="btnFinalizar" onclick="corrigir()">FINALIZAR SIMULADO</button>
+<button id="btnErros" onclick="mostrarErros()">REVISAR ERROS</button>
+</div>
+
+<script>
+
+let questoesErradas=[];
+
+function corrigir(){
+
+let acertos=0;
+let erros=0;
+
+questoesErradas=[];
+
+for(let i=1;i<=50;i++){
+
+let marcada=document.querySelector('input[name="q'+i+'"]:checked');
+
+if(marcada){
+
+if(marcada.value=="1"){
+
+acertos++;
+
+marcada.closest('.card').classList.add("acerto");
+
+}else{
+
+erros++;
+
+questoesErradas.push(i);
+
+marcada.closest('.card').classList.add("erro");
+
+}
+
+}else{
+
+erros++;
+questoesErradas.push(i);
+
+}
+
+}
+
+let lista="";
+
+questoesErradas.forEach(q=>{
+lista+=`<span class="numeroErro">${q}</span>`;
+});
+
+document.getElementById("resultado").style.display="block";
+
+document.getElementById("resultado").innerHTML=
+`
+<h2>Resultado Final</h2>
+<br>
+<h3>✅ Acertos: ${acertos}</h3>
+<h3>❌ Erros: ${erros}</h3>
+<br>
+<h3>Questões Erradas:</h3>
+${lista}
+`;
+
+document.querySelectorAll('.gabarito').forEach(el=>{
+el.classList.remove('oculto');
+});
+
+document.getElementById("btnErros").style.display="block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+function mostrarErros(){
+
+document.querySelectorAll(".card").forEach((card,index)=>{
+
+let numero=index+1;
+
+if(questoesErradas.includes(numero)){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+
+});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+</script>
+
+</body>
+</html>
